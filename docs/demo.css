@@ -1,0 +1,57 @@
+/* The demo page of icemap. The map itself takes the --icemap-* properties. */
+:root { --fg: #1d1d1f; --muted: #5b5b66; --line: #d8d8de; --bg: #ffffff; --accent: #1f4e8c; --note: #f2f5fa;
+  --font: system-ui, -apple-system, "Segoe UI", sans-serif; color-scheme: light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --fg: #e8e8ec; --muted: #a2a2ad;
+  --line: #3a3a42; --bg: #16161a; --accent: #8db4ec; --note: #20242c; color-scheme: dark; } }
+:root[data-theme="dark"] { --fg: #e8e8ec; --muted: #a2a2ad; --line: #3a3a42; --bg: #16161a; --accent: #8db4ec;
+  --note: #20242c; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 var(--font); }
+a { color: var(--accent); }
+.demo { max-width: 1400px; margin: 0 auto; padding-block: 8px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.demo-head h1 { font-size: 1.8rem; margin: 16px 0 6px; }
+.demo-head h1 small { font-size: .95rem; font-weight: 400; color: var(--muted); margin-left: .5em; }
+.demo-lead { margin: 0 0 16px; color: var(--muted); max-width: 78ch; }
+.demo-tabs { display: flex; flex-wrap: wrap; gap: 0 4px; border-bottom: 1px solid var(--line); margin: 0 0 14px; }
+.demo-tabs a { padding: 8px 14px; text-decoration: none; color: var(--muted); border: 1px solid transparent;
+  border-bottom: 0; border-radius: 6px 6px 0 0; margin-bottom: -1px; }
+.demo-tabs a b { color: var(--fg); font-weight: 600; }
+.demo-tabs a[aria-current] { border-color: var(--line); background: var(--bg); color: var(--fg); }
+.demo-tabs a:not([aria-current]):hover { background: var(--note); }
+.demo-intro { max-width: 78ch; margin: 0 0 12px; }
+.demo-views { border: 0; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 10px; }
+.demo-views legend { padding: 0; margin-bottom: 4px; font-size: .78rem; font-weight: 600; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .04em; }
+.demo-views label { display: flex; gap: 6px; align-items: baseline; border: 1px solid var(--line); border-radius: 6px;
+  padding: 5px 10px; cursor: pointer; }
+.demo-views label:has(input:checked) { border-color: var(--accent); background: var(--note); }
+.demo-views label span { display: grid; color: var(--muted); font-size: .82rem; }
+.demo-views label span b { color: var(--fg); font-size: .9rem; font-weight: 600; }
+.demo-wait { color: var(--muted); padding: 40px 0; }
+#icemap.icemap { --icemap-fg: var(--fg); --icemap-muted: var(--muted); --icemap-line: var(--line);
+  --icemap-panel: var(--bg); --icemap-hover: var(--note); }
+.demo-text { max-width: 78ch; margin-top: 28px; }
+.demo-text h2 { font-size: 1.25rem; margin: 1.8rem 0 .4rem; }
+.demo-text h3 { font-size: 1.05rem; margin: 1.2rem 0 .3rem; }
+.demo-text p, .demo-text li { font-size: .97rem; }
+.demo-text li { margin: 4px 0; }
+.hot { color: #c0392b; font-weight: 600; }
+.cold { color: #2e6db4; font-weight: 600; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hot { color: #e0574a; }
+  :root:not([data-theme="light"]) .cold { color: #4f8fdc; } }
+.demo-facts { display: grid; grid-template-columns: minmax(9rem, max-content) 1fr; gap: 6px 18px; font-size: .95rem; }
+.demo-facts dt { color: var(--muted); }
+.demo-facts dd { margin: 0; }
+.demo-cite { background: var(--note); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 10px 0; }
+.demo-cite p { margin: 0; }
+.demo-refs { padding-left: 0; list-style: none; }
+.demo-refs li { padding-left: 1.5em; text-indent: -1.5em; overflow-wrap: anywhere; }
+.demo-foot { margin-top: 36px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted);
+  font-size: .85rem; max-width: 78ch; }
+@media (max-width: 560px) { .demo-facts { grid-template-columns: 1fr; } .demo-facts dd { margin-bottom: 6px; } }
+@media (max-width: 560px) {
+  .demo-head h1 small { display: block; margin: 2px 0 0; }
+  .demo-tabs { flex-wrap: nowrap; }
+  .demo-tabs a { padding: 8px 10px; font-size: .9rem; flex: 1 1 0; text-align: center; }
+}

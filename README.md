@@ -25,6 +25,10 @@ repository reimplements it for static web sites. It consists of a generator (`ic
 library only) and a browser component (`web/icemap.js`, a single ES module without dependencies). No server-side
 component is required. The design decisions are documented in [`docs/decisions/`](docs/decisions/).
 
+**Demo:** <https://kaiec.github.io/icemap/> shows MeSH with the indexing of MEDLINE (by people and automated) and the
+STW with the indexing of ECONIS, the two vocabularies of Eckert (2012, chapter 3), with current open data. The
+scripts that fetch the data and build the page are in [`demo/`](demo/).
+
 ## Citation
 
 If you use the ICE-Map Visualization or this implementation, please cite:

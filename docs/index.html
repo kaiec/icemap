@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>ICE-Map Visualization · Demo</title>
+<meta name="description" content="The ICE-Map Visualization (Eckert et al., 2007; Eckert, 2012) applied to MeSH with the indexing of MEDLINE and to the STW with the indexing of ECONIS: treemaps of the hierarchies, coloured by information content.">
+<link rel="stylesheet" href="demo.css?v=bdf52eabb4">
+</head>
+<body>
+<main class="demo" id="main">
+<header class="demo-head">
+<h1>ICE-Map Visualization <small>a demo of <a href="https://github.com/kaiec/icemap">icemap</a></small></h1>
+<p class="demo-lead">The ICE-Map Visualization, as introduced by Eckert, Stuckenschmidt and Pfeffer (2007) and described
+comprehensively by Eckert (2012), depicts a concept hierarchy as a treemap and colours it by the information content of
+the concepts in a set of indexed documents. This demo applies the web implementation <a href="https://github.com/kaiec/icemap">icemap</a>
+to two knowledge organization systems that Eckert (2012, chapter 3) used to evaluate subject indexing, the Medical
+Subject Headings and the STW Thesaurus for Economics, with current open data.</p>
+</header>
+
+<nav class="demo-tabs" aria-label="Examples">
+<a href="?map=mesh" data-tab="mesh"><b>MeSH</b> · indexing of MEDLINE</a>
+<a href="?map=stw" data-tab="stw"><b>STW</b> · indexing in ECONIS</a>
+</nav>
+
+<section data-map="mesh">
+<p class="demo-intro">31,128 MeSH descriptors and tree categories, and samples of MEDLINE citations indexed with
+them. Since April 2022, the U.S. National Library of Medicine indexes MEDLINE automatically, and reviews part of the
+results; each citation records whether it was indexed by people, automatically, or automatically and then reviewed.</p>
+<fieldset class="demo-views">
+<legend>Colour by</legend>
+<label><input type="radio" name="view-mesh" value="iic"> <span><b>Structure</b> intrinsic information content (IIC)</span></label>
+<label><input type="radio" name="view-mesh" value="manual-iic"> <span><b>Indexing by people, 2021</b> IC − IIC</span></label>
+<label><input type="radio" name="view-mesh" value="automated-iic"> <span><b>Automated indexing, 2025</b> IC − IIC</span></label>
+<label><input type="radio" name="view-mesh" value="automated-2021-manual"> <span><b>Automated against people, 2021</b> IC − IC</span></label>
+<label><input type="radio" name="view-mesh" value="curated-automated"> <span><b>Reviewed against automated, 2025</b> IC − IC</span></label>
+</fieldset>
+</section>
+
+<section data-map="stw" hidden>
+<p class="demo-intro">6,697 descriptors and thesaurus categories of the STW, and samples of the records of ECONIS,
+the catalogue of the ZBW – Leibniz Information Centre for Economics, from two periods of publication.</p>
+<fieldset class="demo-views">
+<legend>Colour by</legend>
+<label><input type="radio" name="view-stw" value="iic"> <span><b>Structure</b> intrinsic information content (IIC)</span></label>
+<label><input type="radio" name="view-stw" value="econis-2023-iic"> <span><b>ECONIS 2023–2025</b> IC − IIC</span></label>
+<label><input type="radio" name="view-stw" value="econis-2008-iic"> <span><b>ECONIS 2008–2010</b> IC − IIC</span></label>
+<label><input type="radio" name="view-stw" value="econis-2023-econis-2008"> <span><b>2023–2025 against 2008–2010</b> IC − IC</span></label>
+</fieldset>
+</section>
+
+<div id="icemap" aria-busy="true"><p class="demo-wait">Loading the hierarchy …</p></div>
+
+<div class="demo-text">
+<section data-map="mesh">
+<h2>What the map shows</h2>
+<p><b>Indexing against the structure.</b> As for the intellectual indexing of MEDLINE in Eckert (2012, Figs. 3.9
+and 3.10), a few branches are used far more often than their size lets one expect. Most of them hold check tags,
+descriptors that are considered for every citation: the age groups
+(<a href="#" data-show="D000328" data-view="manual-iic">Adult</a>, Middle Aged, Aged) make Named Groups [M] the
+reddest category; <a href="#" data-show="D006801" data-view="manual-iic">Humans</a> (80 % of the citations) and
+Animals lie in Organisms [B]; <a href="#" data-show="D005260" data-view="manual-iic">Female</a> and Male have no
+tree number at all. The chemicals and drugs [D], a third of the thesaurus, are used about as often as their size
+suggests.</p>
+<p><b>Automated against people, 2021.</b> In 2021, NLM already indexed part of MEDLINE automatically. The two sets
+therefore differ first in what was indexed: environmental science went to the automated indexing
+(<a href="#" data-show="D014874" data-view="automated-2021-manual">Water Pollutants, Chemical</a>, Soil Pollutants,
+Microplastics), experimental biology to people. Within this division, some descriptors are assigned by people and
+hardly ever automatically, such as
+<a href="#" data-show="D014407" data-view="automated-2021-manual">Tumor Cells, Cultured</a> (111 citations against
+none), <a href="#" data-show="D004305" data-view="automated-2021-manual">Dose-Response Relationship, Drug</a> or
+<a href="#" data-show="D013329" data-view="automated-2021-manual">Structure-Activity Relationship</a>. People
+assigned 12.4 descriptors per citation, the automated indexing of 2021 7.0, that
+of 2025 10.6.</p>
+<p><b>Reviewed against automated, 2025.</b> Part of the automated indexing is reviewed by people. The reviewed
+citations carry descriptors that the automated indexing alone rarely assigns: the type of study
+(<a href="#" data-show="D012196" data-view="curated-automated">Review Literature as Topic</a>,
+<a href="#" data-show="D000078202" data-view="curated-automated">Systematic Reviews as Topic</a>,
+<a href="#" data-show="D004311" data-view="curated-automated">Double-Blind Method</a>) and the population studied
+(<a href="#" data-show="D044382" data-view="curated-automated">Population Groups</a>, e.g. Asian People, Black or
+African American, Hispanic or Latino). The reviewed citations are not a random selection: laboratory science
+(<a href="#" data-show="D008810" data-view="curated-automated">Mice, Inbred C57BL</a>, Limit of Detection) is
+blue because it is rarely among them.</p>
+<h2>Data</h2>
+<dl class="demo-facts">
+<dt>Hierarchy</dt><dd>MeSH 2026 (descriptors), nested by their tree numbers; the first tree number of a descriptor
+gives its place in the map, the others are listed under “Also under”. The 16 tree categories form the top level.</dd>
+<dt>2021</dt><dd>a sample of the MEDLINE citations that entered PubMed in 2021, 150 per day:
+12,963 indexed by people (IndexingMethod “Manual”), 34,909 automatically
+(“Automated”)</dd>
+<dt>2025</dt><dd>a sample of 2025, 80 per day: 22,538 indexed automatically</dd>
+<dt>Reviewed</dt><dd>5,662 citations of the 2025 sample (“Curated”: indexed automatically, then
+reviewed by people)</dd>
+<dt>Counting</dt><dd>every citation once per area, however many of its descriptors lie below; qualifiers are not
+counted</dd>
+</dl>
+</section>
+
+<section data-map="stw" hidden>
+<h2>What the map shows</h2>
+<p><b>Indexing against the structure.</b> As in the evaluation of intellectual indexing with the STW by Eckert (2012,
+Figs. 3.6–3.8), the usage of the thesaurus departs from its structure in characteristic ways. The geographic names
+(<a href="#" data-show="thsys/g" data-view="econis-2023-iic">G</a>) are given to almost half of the records, and the
+general descriptors (<a href="#" data-show="thsys/a" data-view="econis-2023-iic">A</a>) to a fifth, mostly
+<a href="#" data-show="descriptor/19073-6" data-focus="thsys/70582" data-view="econis-2023-iic">Theory</a>, which
+marks theoretical works. The commodities (<a href="#" data-show="thsys/p" data-view="econis-2023-iic">P</a>), a large
+part of the thesaurus, are rarely used: paper, wood products and clothing not at all in the sample.</p>
+<p><b>2023–2025 against 2008–2010.</b> The comparison of the two periods shows how the literature, and with it the
+indexing, has moved. Red are descriptors that were hardly or never used in 2008–2010:
+<a href="#" data-show="descriptor/30218-4" data-view="econis-2023-econis-2008">Coronavirus</a>,
+<a href="#" data-show="descriptor/30171-4" data-view="econis-2023-econis-2008">Digitization</a>,
+<a href="#" data-show="descriptor/30475-5" data-view="econis-2023-econis-2008">Machine learning</a>,
+<a href="#" data-show="descriptor/30143-2" data-view="econis-2023-econis-2008">Virtual currency</a>,
+<a href="#" data-show="descriptor/30190-0" data-view="econis-2023-econis-2008">Blockchain</a> and the Sustainable
+Development Goals. Blue are topics of the earlier period, such as the
+<a href="#" data-show="descriptor/29631-6" data-view="econis-2023-econis-2008">subprime financial crisis</a>, RFID or
+East Germany. Records of the later period also carry more descriptors (5.7 against
+4.7).</p>
+<h2>Data</h2>
+<dl class="demo-facts">
+<dt>Hierarchy</dt><dd>STW Thesaurus for Economics 9.20 without deprecated concepts: the thesaurus categories above,
+the descriptors below them. A descriptor is placed under a broader descriptor of the same category where there is one,
+else under its first category; further broader concepts are listed under “Also under”.</dd>
+<dt>ECONIS 2008–2010</dt><dd>15,896 of 20,000 records published 2008–2010
+have subjects that match STW descriptors; 4.7 descriptors per record</dd>
+<dt>ECONIS 2023–2025</dt><dd>17,385 of 20,000 records published
+2023–2025; 5.7 descriptors per record</dd>
+<dt>Sampling</dt><dd>20 pages of 1,000 records at evenly spaced positions of the result list of the EconBiz API. The
+subjects of a record (labels, German and English, mixed with free keywords) are matched to the preferred and
+alternative labels of the descriptors, ignoring case.</dd>
+<dt>Counting</dt><dd>every record once per area, however many of its descriptors lie below</dd>
+</dl>
+</section>
+
+<h2>How to read the map</h2>
+<p>The size of an area is determined by the structure alone: it is the number of concepts in its subtree. The colour
+shows the information content (IC) of a concept or the difference between two ICs, computed as in Eckert (2012,
+Eqs. 2.4–2.8). A concept counts all documents indexed with it or with one of its narrower concepts, so deviations
+deep in the hierarchy also show in the areas above them.</p>
+<ul>
+<li><b>Structure (IIC)</b>: the intrinsic information content, derived from the hierarchy alone. The fewer concepts
+below a concept, the higher its IIC and the paler its area. This is what the map would show if the documents were
+spread over the hierarchy according to its structure.</li>
+<li><b>IC − IIC</b>: the information content in a set of indexed documents minus the intrinsic one.
+<span class="hot">Red</span>: the concept is used more often than the structure lets one expect;
+<span class="cold">blue</span>: less often.</li>
+<li><b>IC − IC</b>: two sets of indexed documents compared. Red: the concept is used more often in the first set than
+in the second, the reference.</li>
+</ul>
+<p>Double-click an area to zoom in; the path above the map, Escape or Backspace lead back out. Click an area or a line
+of the hierarchy beside the map to see its numbers. Contrast narrows the colour range, so smaller differences show;
+balance shifts the neutral point.</p>
+
+<h2>Citation</h2>
+<p>If you use the ICE-Map Visualization or this implementation, please cite:</p>
+<div class="demo-cite"><p>Eckert, K. (2012). <i>Usage-driven Maintenance of Knowledge Organization Systems</i>
+(Doctoral dissertation). Universität Mannheim.
+<a href="https://madoc.bib.uni-mannheim.de/31754/">https://madoc.bib.uni-mannheim.de/31754/</a></p></div>
+<p>The ICE-Map Visualization was first presented at the 4th International Conference on Knowledge Capture
+(K-CAP 2007), where the paper received the best paper award. Further publications are listed in the
+<a href="https://github.com/kaiec/icemap#publications-on-the-ice-map-visualization">repository</a>.</p>
+
+<h2>References</h2>
+<ul class="demo-refs">
+<li>Eckert, K. (2012). <i>Usage-driven Maintenance of Knowledge Organization Systems</i> (Doctoral dissertation).
+Universität Mannheim. <a href="https://madoc.bib.uni-mannheim.de/31754/">madoc.bib.uni-mannheim.de/31754</a></li>
+<li>Eckert, K., Stuckenschmidt, H., &amp; Pfeffer, M. (2007). Interactive thesaurus assessment for automatic document
+annotation. In <i>Proceedings of the 4th International Conference on Knowledge Capture (K-CAP 2007)</i>
+(pp. 103–110). ACM. <a href="https://doi.org/10.1145/1298406.1298426">doi:10.1145/1298406.1298426</a></li>
+<li>U.S. National Library of Medicine. Frequently asked questions about indexing for MEDLINE.
+<a href="https://www.nlm.nih.gov/bsd/indexfaq.html">nlm.nih.gov/bsd/indexfaq.html</a></li>
+</ul>
+</div>
+
+<footer class="demo-foot">
+<p>Data: Medical Subject Headings and MEDLINE/PubMed citations courtesy of the
+<a href="https://www.nlm.nih.gov/">U.S. National Library of Medicine</a>, retrieved through the NCBI E-utilities;
+this demo is not endorsed by NLM. <a href="https://zbw.eu/stw/">STW Thesaurus for Economics</a>, ZBW – Leibniz
+Information Centre for Economics, CC BY 4.0; ECONIS records through the <a href="https://api.econbiz.de/doc">EconBiz
+API</a>. Only counts per concept are published here. Code: <a href="https://github.com/kaiec/icemap">github.com/kaiec/icemap</a>
+(MIT); the scripts that fetch the data are in <code>demo/</code>.</p>
+</footer>
+</main>
+<script type="module" src="demo.js?v=eac5732047"></script>
+</body>
+</html>

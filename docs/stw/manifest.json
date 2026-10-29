@@ -1,0 +1,24 @@
+{
+ "format": "icemap/1",
+ "title": "STW Thesaurus for Economics",
+ "nodes": 6697,
+ "depth": 9,
+ "chunkDepth": null,
+ "chunks": 1,
+ "count": "documents",
+ "sets": [
+  {
+   "id": "econis-2008",
+   "label": "ECONIS, published 2008–2010",
+   "documents": 15896,
+   "annotations": 74825
+  },
+  {
+   "id": "econis-2023",
+   "label": "ECONIS, published 2023–2025",
+   "documents": 17385,
+   "annotations": 98513
+  }
+ ],
+ "generated": "2026-10-29"
+}

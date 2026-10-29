@@ -1,0 +1,36 @@
+{
+ "format": "icemap/1",
+ "title": "Medical Subject Headings (MeSH)",
+ "nodes": 31128,
+ "depth": 14,
+ "chunkDepth": null,
+ "chunks": 1,
+ "count": "documents",
+ "sets": [
+  {
+   "id": "manual",
+   "label": "MEDLINE 2021, indexed by people",
+   "documents": 12963,
+   "annotations": 160513
+  },
+  {
+   "id": "automated-2021",
+   "label": "MEDLINE 2021, automated indexing",
+   "documents": 34909,
+   "annotations": 244038
+  },
+  {
+   "id": "automated",
+   "label": "MEDLINE 2025, automated indexing",
+   "documents": 22538,
+   "annotations": 238644
+  },
+  {
+   "id": "curated",
+   "label": "MEDLINE 2025, automated indexing reviewed by people",
+   "documents": 5662,
+   "annotations": 60187
+  }
+ ],
+ "generated": "2026-10-29"
+}

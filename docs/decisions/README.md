@@ -6,3 +6,4 @@
 | [0002](0002-spanning-tree.md) | A spanning tree; the polyhierarchy as an option | 2026-10-29 |
 | [0003](0003-inputs.md) | Generator inputs: concepts and annotation sets as TSV | 2026-10-29 |
 | [0004](0004-output.md) | Output: a tree in depth-first order, cut into chunks, with w and w⁺ per annotation set | 2026-10-29 |
+| [0005](0005-demo.md) | A demo on GitHub Pages with MeSH and the STW | 2026-10-29 |
