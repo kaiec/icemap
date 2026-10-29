@@ -315,8 +315,9 @@ export class IceMap {
   }
 
   async focus(id, notify = true) {
-    const i = typeof id === 'number' ? id : this.s.index.get(id);
+    let i = typeof id === 'number' ? id : this.s.index.get(id);
     if (i === undefined) return false;
+    if (!this.s.hasChildren(i) && this.s.parent[i] >= 0) i = this.s.parent[i];   // a leaf is shown in its parent
     this.focusNode = i;
     this.relayout();
     if (notify) this.changed();
@@ -332,6 +333,12 @@ export class IceMap {
     await this.revealInTree(i);
     if (notify) this.changed();
     return true;
+  }
+
+  // the id of the primary parent of a concept, or null
+  parentOf(id) {
+    const i = this.s.index.get(id);
+    return i === undefined || this.s.parent[i] < 0 ? null : this.s.ids[this.s.parent[i]];
   }
 
   state() {

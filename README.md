@@ -111,7 +111,7 @@ instead. `--chunk-depth N` splits large hierarchies into chunks that are loaded 
     link: id => `https://example.org/concept/${id}`,
     onChange: ({ focus, select }) => { /* keep the state, e.g. in the address */ },
   });
-  // map.setColour({...}), map.focus(id), map.select(id), map.state()
+  // map.setColour({...}), map.focus(id), map.select(id), map.parentOf(id), map.state()
 </script>
 ```
 
