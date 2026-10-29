@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: "If you use the ICE-Map Visualization or this implementation, please cite the dissertation below."
+title: "icemap: a web implementation of the ICE-Map Visualization"
+type: software
+authors:
+  - family-names: Eckert
+    given-names: Kai
+repository-code: "https://github.com/kaiec/icemap"
+license: MIT
+keywords:
+  - ICE-Map Visualization
+  - knowledge organization systems
+  - treemap
+  - information content
+preferred-citation:
+  type: thesis
+  thesis-type: "Doctoral dissertation"
+  title: "Usage-driven Maintenance of Knowledge Organization Systems"
+  authors:
+    - family-names: Eckert
+      given-names: Kai
+  institution:
+    name: "Universität Mannheim"
+    city: Mannheim
+  year: 2012
+  url: "https://madoc.bib.uni-mannheim.de/31754/"
+  identifiers:
+    - type: url
+      value: "https://madoc.bib.uni-mannheim.de/31754/"
+    - type: other
+      value: "urn:nbn:de:bsz:180-madoc-317542"
+references:
+  - type: conference-paper
+    title: "Interactive Thesaurus Assessment for Automatic Document Annotation"
+    authors:
+      - family-names: Eckert
+        given-names: Kai
+      - family-names: Stuckenschmidt
+        given-names: Heiner
+      - family-names: Pfeffer
+        given-names: Magnus
+    collection-title: "Proceedings of the 4th International Conference on Knowledge Capture (K-CAP 2007)"
+    publisher:
+      name: ACM
+    year: 2007
+    start: 103
+    end: 110
+    doi: "10.1145/1298406.1298426"
