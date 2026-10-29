@@ -1,5 +1,6 @@
 // The demo page around the ICE-Map component. The address holds the state:
-// ?map=mesh|stw&view=…&focus=…&select=… (ids of the shown top concept and of the selected one).
+// ?map=mesh|stw&view=…&focus=…&select=… (ids of the shown top concept and of the selected one)
+// &contrast=…&balance=… (the colour sliders).
 import { IceMap } from './icemap.js';
 
 const MAPS = {
@@ -44,6 +45,8 @@ function save() {
   const s = map.state(), p = new URLSearchParams({ map: name, view });
   if (s.focus) p.set('focus', s.focus);
   if (s.select) p.set('select', s.select);
+  if (s.contrast) p.set('contrast', s.contrast);
+  if (s.balance) p.set('balance', s.balance);
   try { history.replaceState(null, '', `?${p}`); } catch { /* not allowed where the page is embedded */ }
 }
 
@@ -51,6 +54,7 @@ try {
   map = await IceMap.open(el, {
     src: `${name}/`, colour: cfg.views[view], link: cfg.link, onChange: save,
     focus: params.get('focus') || undefined, select: params.get('select') || undefined,
+    contrast: params.get('contrast') ?? undefined, balance: params.get('balance') ?? undefined,
   });
   el.removeAttribute('aria-busy');
   radios.forEach(r => r.addEventListener('change', async () => {

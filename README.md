@@ -113,9 +113,10 @@ instead. `--chunk-depth N` splits large hierarchies into chunks that are loaded 
     src: 'data/',                    // the directory with manifest.json
     colour: { a: 'a', b: 'iic' },    // IC(a) − IIC; { a: 'a', b: 'b' } compares two sets; { a: 'iic' } the structure
     link: id => `https://example.org/concept/${id}`,
-    onChange: ({ focus, select }) => { /* keep the state, e.g. in the address */ },
+    onChange: ({ focus, select, contrast, balance }) => { /* keep the state, e.g. in the address */ },
   });
-  // map.setColour({...}), map.focus(id), map.select(id), map.parentOf(id), map.state()
+  // map.setColour({...}), map.setTone({ contrast, balance }), map.focus(id), map.select(id), map.parentOf(id),
+  // map.state(); focus, select, contrast (0–100) and balance (−100–100) are also options of open()
 </script>
 ```
 

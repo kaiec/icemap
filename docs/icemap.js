@@ -244,7 +244,8 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 
 export class IceMap {
   // options: src (directory of manifest.json), colour {a, b} (set ids or 'iic'; without b: IC of a alone),
-  // focus, select (concept ids), link(id) -> URL or null, onChange({focus, select}), text (labels of the UI)
+  // focus, select (concept ids), contrast (0..100), balance (-100..100), link(id) -> URL or null,
+  // onChange(state) with the state as state() gives it, text (labels of the UI)
   static async open(el, options = {}) {
     const base = new URL(options.src || './', document.baseURI).href.replace(/\/?$/, '/');
     const res = await fetch(new URL('manifest.json', base));
@@ -252,6 +253,7 @@ export class IceMap {
     const store = new Store(base, await res.json());
     await store.chunk(0);
     const map = new IceMap(el, store, options);
+    map.setTone(options, false);
     await map.setColour(options.colour || { a: 'iic' });
     if (options.focus) await map.focus(options.focus, false);
     if (options.select) await map.select(options.select, false);
@@ -341,8 +343,20 @@ export class IceMap {
     return i === undefined || this.s.parent[i] < 0 ? null : this.s.ids[this.s.parent[i]];
   }
 
+  // contrast 0..100 and balance -100..100, as on the sliders; a missing value is left as it is
+  setTone({ contrast, balance }, notify = true) {
+    const c = Math.round(Math.max(0, Math.min(100, Number(contrast)))), b = Math.round(Math.max(-100, Math.min(100, Number(balance))));
+    if (contrast !== undefined && contrast !== null && !Number.isNaN(c)) { this.contrast = c / 100 * 0.97; this.el.querySelector('.contrast').value = c; }
+    if (balance !== undefined && balance !== null && !Number.isNaN(b)) { this.balance = b / 100; this.el.querySelector('.balance').value = b; }
+    this.recolour();
+    if (notify) this.changed();
+  }
+
   state() {
-    return { focus: this.focusNode ? this.s.ids[this.focusNode] : null, select: this.selected >= 0 ? this.s.ids[this.selected] : null };
+    return {
+      focus: this.focusNode ? this.s.ids[this.focusNode] : null, select: this.selected >= 0 ? this.s.ids[this.selected] : null,
+      contrast: Math.round(this.contrast / 0.97 * 100), balance: Math.round(this.balance * 100),
+    };
   }
 
   // ------------------------------------------------ colours
@@ -630,13 +644,15 @@ export class IceMap {
       if (li && e.target.closest('.lbl')) { const i = +li.dataset.i; this.focus(this.s.hasChildren(i) ? i : this.s.parent[i]); }
     });
     const contrast = q('.contrast'), balance = q('.balance');
-    contrast.addEventListener('input', () => { this.contrast = contrast.value / 100 * 0.97; this.recolour(); });
-    balance.addEventListener('input', () => { this.balance = balance.value / 100; this.recolour(); });
+    contrast.addEventListener('input', () => this.setTone({ contrast: +contrast.value }, false));
+    balance.addEventListener('input', () => this.setTone({ balance: +balance.value }, false));
+    contrast.addEventListener('change', () => this.changed());
+    balance.addEventListener('change', () => this.changed());
     q('.centre').addEventListener('click', () => {
-      const v = this.value(this.focusNode);
-      if (!Number.isNaN(v)) { this.balance = this.colour.b ? v : Math.max(0, 1 - v); balance.value = Math.round(this.balance * 100); this.recolour(); }
+      const v = this.value(this.focusNode);   // rounded to the slider, so that the state reproduces the colours
+      if (!Number.isNaN(v)) this.setTone({ balance: (this.colour.b ? v : Math.max(0, 1 - v)) * 100 });
     });
-    q('.reset').addEventListener('click', () => { this.contrast = 0; this.balance = 0; contrast.value = 0; balance.value = 0; this.recolour(); });
+    q('.reset').addEventListener('click', () => this.setTone({ contrast: 0, balance: 0 }));
     const input = q('.icemap-search input'), hits = q('.icemap-hits');
     input.addEventListener('input', () => {
       const t = input.value.trim().toLowerCase();
